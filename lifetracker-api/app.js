@@ -1,6 +1,6 @@
 const express = require("express");
-const core = require("cors");
-const stroreRouter = reqire("./routes/storeRoute");
+const cors = require("cors");
+//const stroreRouter = require("./routes/storeRoute");
 
 const app = express();
 
