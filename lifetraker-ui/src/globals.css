@@ -19,6 +19,7 @@ body {
   background-color: white;
   padding: 5px;
   margin-top: 20px;
+  min-height: 250;
 }
 
 /* Clear floats after the columns */
