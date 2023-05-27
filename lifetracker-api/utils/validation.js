@@ -6,7 +6,9 @@ const validationFields = ({required, obj, location})=>{
     if(!obj) throw new UnprocessableEntityError('Missing object for vlaidation')
     required.forEach((item)=>{
         if(isEmpty(obj[item])){
-            throw new  UnprocessableEntityError(`Required field - ${item}`)
+            throw new  UnprocessableEntityError(`Required field - ${item} missing${location ? ` at ${location}` : ""}`)
         }
     })
 }
+
+module.exports = {validationFields, isEmpty}
