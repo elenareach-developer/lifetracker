@@ -1,0 +1,11 @@
+
+label{
+    font-size: 12px;
+    min-width: 100px
+}
+.ExerciseForm{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    min-width: 350px;
+}

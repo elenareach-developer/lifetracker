@@ -28,6 +28,12 @@ class User {
     }
   }
 
+  static async getUsers(){
+    const result = await db.query(
+      `SELECT *  FROM users`)
+      console.log(result)
+    return result
+  }
   /**
    * Authenticate user with email and password.
    *

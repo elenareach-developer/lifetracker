@@ -7,10 +7,10 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="leftNav">
-          <img src={logo} alt="codepath logo" />
+      <Link to="/"> <img src={logo} alt="codepath logo" /></Link>
       </div>
       <div className="righNav">
-       <Link to="/exersise">Exersise</Link>
+       <Link to="/exercise">Exersise</Link>
        <Link to="/nutrition">Nutrition</Link>
        <Link to="/sleep">Sleep</Link>
         <Link to="/login">Login</Link>

@@ -45,3 +45,71 @@ body {
 .smallText{
   font-size: 14px;
 }
+
+.errorMsg {
+  max-width: 350px;
+  color: #f21e08;
+  padding: 2px 0;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-control label {
+  min-width: 150px;
+  padding-right: 20px;
+  margin-bottom: 5px;
+}
+
+.form-control input[type="text"],
+.form-control input[type="password"] {
+  min-width: 250px;
+  padding: 5px;
+}
+
+button {
+  max-width: 150px;
+  padding: 5px 10px;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    width: 90%;
+  }
+
+  .errorMsg {
+    max-width: 100%;
+  }
+
+  .form-control {
+    flex-direction: column;
+  }
+
+  .form-control input[type="text"],
+  .form-control input[type="password"] {
+    width: inherit;
+  }
+}
+
+.green{
+  background-color: darkcyan;
+  color:antiquewhite
+ }
+ .orange{
+  background-color:coral;
+  color:aliceblue
+ }
+ .blue{
+  background-color:cornflowerblue;
+  color:aliceblue
+ }
+ .red{
+  background-color:darkred;
+  color:aliceblue
+ }

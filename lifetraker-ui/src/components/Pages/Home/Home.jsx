@@ -1,12 +1,19 @@
 import React from "react";
-import  Product from "../../Product/Product"
+import  About from "../../About/About"
+import  Hero from "../../Hero/Hero"
 
 
 const Home = ()=>{
 
   return(
-    <>  
-      < Product/>
+    <>   
+      <div className="card greenBg noTop">
+        <Hero />
+      </div>
+      <h3 id="about">About</h3>
+          <div className="card">
+            <About />
+          </div>
     </>
   )
 }

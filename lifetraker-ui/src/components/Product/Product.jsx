@@ -13,7 +13,7 @@ export default function Product(props) {
 
   useEffect(()=>{
     setProduct(props.product || initialProduct)
-    setSize("product " + props.size)
+    setSize("product " + "bigCart")
   },[props])
   
 

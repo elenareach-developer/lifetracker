@@ -21,4 +21,14 @@ router.post("/register", async function (req, res, next) {
   }
 })
 
+router.get("/userList", async function (req, res, next) {
+  console.log("Hi")
+  try {
+    const user = await User.getUsers()
+    console.log(user)
+    return res.status(201).json({ user })
+  } catch (err) {
+    next(err)
+  }
+})
 module.exports = router
