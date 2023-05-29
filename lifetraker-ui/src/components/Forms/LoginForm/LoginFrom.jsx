@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate} from "react-router-dom"
 import "./LoginFrom.css"
 import {useUser} from "../../../Contexts/UserContext"
 import {validateEmail} from "../../../services/validation"
@@ -7,7 +7,7 @@ import {validateEmail} from "../../../services/validation"
 
 
 export default function LoginFrom(props) {
-  const {authCred, setAuthCred, fetchUser,isFetch, setIsFatch, user}  = useUser();
+  const {setAuthCred, fetchUser,isFetch, setIsFetch, user}  = useUser();
   const navigate = useNavigate()
   const [isEmail, setIsEmail] = useState(false);
   const [isPass, setIsPass] = useState(false);
@@ -41,9 +41,9 @@ export default function LoginFrom(props) {
   const handleSubmit = async ()  => {
     setIsFetch(true);
     if(isPass&&isEmail){
-    const res = await fetchUser()
-    navigate("/portal")
-    setIsFetch(false);
+      const res = await fetchUser()
+      navigate("/portal")
+      setIsFetch(false);
     }
   };
 

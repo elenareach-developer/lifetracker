@@ -16,9 +16,8 @@ class Exercise{
     
     const results = await db.query(
         `INSERT INTO exercises (name, duration, intencity, user_id)
-        VALUES ($1, $2, $3, $4)
-        RETURNIN id, name, category, duration, intensity, user_id AS "userId", timestamp`,
-        [name, duration,intensity, user.id]
+        VALUES (${name}, ${duration}, ${intensity}, ${user.id})
+        RETURNIN id, name, category, duration, intensity, user_id AS "userId", timestamp`
     )
     return results.rows[0]
 }
@@ -28,10 +27,9 @@ static async fetchByUserId(userId){
     }
 
     const results = await db.query(
-        `SELECT id, name, category,  duration, intensity, user_id as userId", timestamp
+        `SELECT id, name, category,  duration, intensity, user_id as "userId", timestamp
         FROM exercises
-        WHERE user_id = $1`,
-        [userId]
+        WHERE user_id = ${userId}`
     )
     const exercises = results.rows
     if(!exercises){
@@ -40,16 +38,18 @@ static async fetchByUserId(userId){
     return exercises
 }
 
-static async list ({user}){
+static async list(user){
+ 
     const results = await db.query(`
-    SELECT id, name, duration, intensity, user_id as userId", timestamp
+    SELECT id, name, duration, intensity, user_id, timestamp
     FROM exercises
-    WHERE user_id = $1
-    ORDER BY timestamp DESC`,
-    [user.id]
+    WHERE user_id = ${user.id}
+    ORDER BY timestamp DESC`
     )
     const exercises = results.rows
-    return exercises || []
+    console.log("list user===");
+    console.log(exercises)
+    return exercises 
 }
 
 }

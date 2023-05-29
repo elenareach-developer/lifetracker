@@ -7,11 +7,19 @@ import NavbarLinks from "../../NavLinks/NavbarLinks"
 
 
 const Portal = ()=>{
-  const {user}  = useUser();
+  const {user,fetchExercise, exercise, setIsFetch}  = useUser();
   const navigate = useNavigate();
   useEffect(()=>{
+    const fetchingData =async()=>{
+      setIsFetch(true)
+      const resExercise = await fetchExercise();
+      console.log(exercise);
+      setIsFetch(false);
+    }
     if(!user.email){
       navigate("/login")
+    }else{
+      fetchingData();
     }
   },[])
   return(

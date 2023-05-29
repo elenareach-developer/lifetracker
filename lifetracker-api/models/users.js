@@ -31,7 +31,6 @@ class User {
   static async getUsers(){
     const result = await db.query(
       `SELECT *  FROM users`)
-      console.log(result)
     return result
   }
   /**
@@ -95,7 +94,7 @@ class User {
           location,
           date
         )
-        VALUES ($1, $2, $3, $4, $5, $6)
+        VALUES (${1}, ${2}, ${3}, ${4}, ${5}, ${6})
         RETURNING id,
                   email,            
                   first_name AS "firstName", 
@@ -118,6 +117,17 @@ class User {
    * @returns user
    */
   static async fetchUserByEmail(email) {
+    console.log("email")
+    console.log(email)
+    console.log(`SELECT id,
+    email, 
+    password,
+    first_name AS "firstName",
+    last_name AS "lastName",
+    location,
+    date              
+ FROM users
+ WHERE email = "${email}"`)
     const result = await db.query(
       `SELECT id,
               email, 
@@ -127,13 +137,10 @@ class User {
               location,
               date              
            FROM users
-           WHERE email = $1`,
-      [email]
+           WHERE email = '${email}'`
     )
-    console.log("email")
-    console.log(email)
+
     const user = result.rows[0]
-      console.log(user)
     return user
   }
 
@@ -153,8 +160,7 @@ class User {
               location,
               date              
            FROM users
-           WHERE id = $1`,
-      [userId]
+           WHERE id = ${userId}`
     )
 
     const user = result.rows[0]

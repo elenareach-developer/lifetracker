@@ -22,9 +22,13 @@ router.get("/find/:id", async function (req, res, next) {
     next(err)
   }
 })
-router.get("/list/", async function (req, res, next) {
+router.post("/list/", async function (req, res, next) {
+  console.log("req.body");
+  console.log(req.body);
     try {
       const exercise = await Exercise.list(req.body)
+      console.log("exercise route")
+      console.log(exercise)
       return res.status(201).json({ exercise })
     } catch (err) {
       next(err)

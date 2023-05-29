@@ -9,16 +9,15 @@ import Nutrition from"../Pages/Nutrition/Nutrition";
 import Login from"../Pages/Login/Login";
 import Registration from"../Pages/Registration/Registration";
 import Home from"../Pages/Home/Home";
+import Logout from"../Pages/Logout/Logout";
 import Portal from"../Pages/Portal/Portal";
 import Navbar from"../Navbar/Navbar"
-import {useUser} from "../../Contexts/UserContext";
 import {initialData} from "../../data/initialData";
-import axios from 'axios';
 
 
 
-export default function App() {
-  const { authCred, isFetch, setisFetch,isFetching, user,  setUser, setExercise, setNutrition, setSleep,fetchUser} = useUser();
+
+export default function App() {  
   const [appState, setAppState] = useState(initialData.user);
  
   return (
@@ -36,6 +35,7 @@ export default function App() {
                             <Route exact path="/nutrition" element={<Nutrition />} />
                             <Route exact path="/sleep" element={<Sleep/>} />
                             <Route exact path="/login" element={<Login />} />
+                            <Route exact path="/logout" element={<Logout />} />
                             <Route exact path="/registration" element={<Registration />} />
                             
               </Routes>
