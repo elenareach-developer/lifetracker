@@ -21,6 +21,7 @@ class ForbiddenError extends ExpressError{
         super(message, 403)
     }
 }
+
 class NotFoundError extends ExpressError{
     constructor (message = "Not Found"){
         super(message, 404)

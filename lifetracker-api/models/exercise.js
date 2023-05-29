@@ -1,15 +1,15 @@
 "use strict"
 
 const db = require("../db");
-const {NotFoundError} = require("../utils/errors");
-const {validateFields} = require("../utils/validation");
+const {NotFoundError, BadRequestError} = require("../utils/errors");
+const {validationFields} = require("../utils/validation");
 
 
 class Exercise{
     static async create({exercise, user}){
         const {name, duration, intensity} = exercise
         try{
-            validateFields({required:["name","duration","intensity"], obj:exercise, location:"exercise create"})
+            validationFields({required:["name","duration","intensity"], obj:exercise, location:"exercise create"})
         }catch(err){
             throw err
         }
@@ -17,30 +17,34 @@ class Exercise{
     const results = await db.query(
         `INSERT INTO exercises (name, duration, intencity, user_id)
         VALUES ($1, $2, $3, $4)
-        RETURNIN id, name, duration, intensity, user_id AS "userId", timestamp`,
+        RETURNIN id, name, category, duration, intensity, user_id AS "userId", timestamp`,
         [name, duration,intensity, user.id]
     )
     return results.rows[0]
 }
-static async fetchById(exerciseId){
+static async fetchByUserId(userId){
+    if(!userId){
+        throw new BadRequestError("User id is required")
+    }
+
     const results = await db.query(
-        `SELECT id, name, duration, intensity, user_id as userId", timestamp
+        `SELECT id, name, category,  duration, intensity, user_id as userId", timestamp
         FROM exercises
-        WHERE id = $1`,
-        [exerciseId]
+        WHERE user_id = $1`,
+        [userId]
     )
-    const exercise = results.rows[0]
-    if(!exercise){
+    const exercises = results.rows
+    if(!exercises){
         throw new NotFoundError("Exercise not found")
     }
-    return exercise
+    return exercises
 }
 
 static async list ({user}){
     const results = await db.query(`
     SELECT id, name, duration, intensity, user_id as userId", timestamp
     FROM exercises
-    WHERE id = $1
+    WHERE user_id = $1
     ORDER BY timestamp DESC`,
     [user.id]
     )

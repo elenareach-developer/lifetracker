@@ -5,6 +5,8 @@ const User = require("../models/users")
 
 router.post("/login", async function (req, res, next) {
   try {
+    console.log("req.body")
+    console.log(req)
     const user = await User.authenticate(req.body)
     return res.status(200).json({ user })
   } catch (err) {
@@ -22,7 +24,6 @@ router.post("/register", async function (req, res, next) {
 })
 
 router.get("/userList", async function (req, res, next) {
-  console.log("Hi")
   try {
     const user = await User.getUsers()
     console.log(user)

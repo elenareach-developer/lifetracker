@@ -2,13 +2,13 @@
 
 const db = require("../db");
 const {NotFoundError} = require("../utils/errors")
-const {validateFields} = require("../utils/validation")
+const {validationFields} = require("../utils/validation")
 
 class Nutrition{
     static async create({nutrition, user}){
         const {name, category, quantity, clories, imageUrl} = nutrition
         try{
-            validateFields({required:["name","category"], obj:nutrition, location:"exercise create"})
+            validationFields({required:["name","category"], obj:nutrition, location:"exercise create"})
         }catch(err){
             throw err
         }

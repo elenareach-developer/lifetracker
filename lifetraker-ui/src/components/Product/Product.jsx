@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from "react"
 import "./Product.css"
-import {useCart} from "../../Contexts/CartContext";
-import { Link } from "react-router-dom";
 import { initialProduct } from "../../data/initialProduct";
 
 
 export default function Product(props) {
-  const {addItemToCart, removeItemFromCart} = useCart();
   const [product, setProduct]  = useState(props.product ||initialProduct)
   const [size, setSize] = useState("product " + props.size)
 

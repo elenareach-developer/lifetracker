@@ -3,8 +3,8 @@
 
 const db = require("../db")
 const bcrypt = require("bcrypt")
-const { BadRequestError, UnauthorizedError } = require("../utils/errors")
-const { validateFields } = require("../utils/validation")
+const { BadRequestError, UnauthorisedError } = require("../utils/errors")
+const validationFields = require("../utils/validation")
 
 const { BCRYPT_WORK_FACTOR } = require("../config")
 
@@ -45,23 +45,20 @@ class User {
   static async authenticate(creds) {
     const { email, password } = creds
     const requiredCreds = ["email", "password"]
-    try {
-      validateFields({ required: requiredCreds, obj: creds, location: "user authentication" })
-    } catch (err) {
-      throw err
-    }
 
+     if(!email&&!password) new UnauthorisedError("Invalid username/password")
     const user = await User.fetchUserByEmail(email)
 
     if (user) {
       // compare hashed password to a new hash from password
-      const isValid = await bcrypt.compare(password, user.password)
+     // const isValid = await bcrypt.compare(password, user.password)
+     const isValid = (password === user.password)
       if (isValid === true) {
         return User._createPublicUser(user)
       }
     }
 
-    throw new UnauthorizedError("Invalid username/password")
+    throw new UnauthorisedError("Invalid username/password")
   }
 
   /**
@@ -76,7 +73,7 @@ class User {
     const { email, password, firstName, lastName, location, date } = creds
     const requiredCreds = ["email", "password", "firstName", "lastName", "location", "date"]
     try {
-      validateFields({ required: requiredCreds, obj: creds, location: "user registration" })
+      validationFields({ required: requiredCreds, obj: creds, location: "user registration" })
     } catch (err) {
       throw err
     }
@@ -131,11 +128,12 @@ class User {
               date              
            FROM users
            WHERE email = $1`,
-      [email.toLowerCase()]
+      [email]
     )
-
+    console.log("email")
+    console.log(email)
     const user = result.rows[0]
-
+      console.log(user)
     return user
   }
 

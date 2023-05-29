@@ -16,7 +16,7 @@ router.get("/find/:id", async function (req, res, next) {
     if(!req.params){ throw err}
 
   try {
-    const exercise = await Exercise.fetchById({id:req.params})
+    const exercise = await Exercise.fetchByUserId({user_id:req.params})
     return res.status(201).json({ exercise })
   } catch (err) {
     next(err)

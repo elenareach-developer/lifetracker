@@ -1,12 +1,12 @@
-const { UnprocessableEntityError } = require("./errors")
+const { BadRequestError  } = require("./errors")
 
 const isEmpty = (value) => value === null || typeof value === "undefined"
 
 const validationFields = ({required, obj, location})=>{
-    if(!obj) throw new UnprocessableEntityError('Missing object for vlaidation')
+    if(!obj) throw new BadRequestError('Missing object for vlaidation')
     required.forEach((item)=>{
         if(isEmpty(obj[item])){
-            throw new  UnprocessableEntityError(`Required field - ${item} missing${location ? ` at ${location}` : ""}`)
+            throw new  BadRequestError(`Required field - ${item} missing${location ? ` at ${location}` : ""}`)
         }
     })
 }

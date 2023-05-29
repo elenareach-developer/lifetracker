@@ -1,12 +1,12 @@
 import React from "react";
-import  Product from "../../Product/Product"
+import LoginFrom from "../../Forms/LoginForm/LoginFrom";
 
 
 const Login = ()=>{
 
   return(
     <div className="card">
-      < Product/>
+      <LoginFrom/>
     </div>
   )
 }

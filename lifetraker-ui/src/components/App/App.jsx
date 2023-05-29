@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react"
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import {initialProduct} from "../../data/initialProduct"
-import Hero from "../Hero/Hero"
 import Footer from "../Footer/Footer"
-import About from "../About/About"
 import "./App.css"
 import Exercise from"../Pages/Exercise/Exercise";
 import Sleep from"../Pages/Sleep/Sleep";
@@ -11,44 +9,18 @@ import Nutrition from"../Pages/Nutrition/Nutrition";
 import Login from"../Pages/Login/Login";
 import Registration from"../Pages/Registration/Registration";
 import Home from"../Pages/Home/Home";
+import Portal from"../Pages/Portal/Portal";
 import Navbar from"../Navbar/Navbar"
-import {useProducts} from "../../Contexts/ProductsContext";
-import {initialData} from "../../data/initialData"
+import {useUser} from "../../Contexts/UserContext";
+import {initialData} from "../../data/initialData";
+import axios from 'axios';
 
 
 
 export default function App() {
-  const {addItemsToProductList} = useProducts();
-  const [eror, setError] = useState();
-  const [isFetching, setIsFetching] = useState(false)
+  const { authCred, isFetch, setisFetch,isFetching, user,  setUser, setExercise, setNutrition, setSleep,fetchUser} = useUser();
   const [appState, setAppState] = useState(initialData.user);
-  const [exercise, setExercise] = useState(initialData.exercise);
-  const [nutrition, setNutrition] = useState(initialData.nutrition);
-  const [auth, setAuth]= useState(initialData.user);
-  const [sleep, setSleep]= useState(initialData.sleep);
-     
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setIsFetching(true);
-
-      try {
-        const res = await axios.get("http://localhost:3001/store");
-        if (initialProduct ) {
-         await  addItemsToProductList(initialProduct );
-        } else {
-          setError("Error fetching products.");
-        }
-      } catch (err) {
-        console.log(err);
-        const message = err?.response?.data?.error?.message;
-        setError(message ?? String(err));
-      } finally {
-        setIsFetching(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+ 
   return (
     <div className="app">
        <BrowserRouter>
@@ -59,10 +31,11 @@ export default function App() {
                
                 <Routes>
                             <Route path="/" element={ <Home/>}/>
-                            <Route exact path="/exercise" element={<Exercise auth={auth} exercise={exercise}  setExercise={setExercise}/>} />s
-                            <Route exact path="/nutrition" element={<Nutrition auth={auth} exercise={nutrition}  setNutrition={setNutrition}/>} />
-                            <Route exact path="/sleep" element={<Sleep auth={auth} exercise={sleep}  setSleep={setSleep}/>} />
-                            <Route exact path="/login" element={<Login auth={auth}  setAuth={setAuth}/>} />
+                            <Route exact path="/portal" element={<Portal />} />
+                            <Route exact path="/exercise" element={<Exercise  />} />
+                            <Route exact path="/nutrition" element={<Nutrition />} />
+                            <Route exact path="/sleep" element={<Sleep/>} />
+                            <Route exact path="/login" element={<Login />} />
                             <Route exact path="/registration" element={<Registration />} />
                             
               </Routes>

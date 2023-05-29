@@ -45,6 +45,20 @@ body {
 .smallText{
   font-size: 14px;
 }
+.email{
+  color:dimgrey;
+  background-color: white;
+}
+.err{
+  color:blue;
+  font-weight: 700;
+  border: #f21e08 solid 1px;
+  background-color:rgb(250, 206, 228);
+}
+.err:focus{
+  border: #f21e08 solid 1px;
+}
+
 
 .errorMsg {
   max-width: 350px;

@@ -2,13 +2,13 @@
 
 const db = require("../db");
 const {NotFoundError} = require("../utils/errors")
-const {validateFields} = require("../utils/validation")
+const {validationFields} = require("../utils/validation")
 
 class Sleep {
     static async create({sleep, user}){
         const {startTime, endTime} = sleep
         try{
-            validateFields({required:["startTime","endTime"], obj:sleep, location:"sleep create"})
+            validationFields({required:["startTime","endTime"], obj:sleep, location:"sleep create"})
         }catch(err){
             throw err
         }

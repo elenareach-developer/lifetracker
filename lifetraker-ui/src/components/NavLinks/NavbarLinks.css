@@ -1,25 +1,24 @@
 /* Style the top navigation bar */
-.navbar {
+.NavbarLink {
     overflow: hidden;
     background-color: #333;
     display: flex;
-    justify-content:flex-start;
+    justify-content: space-around;
     align-items: baseline;
-    width: 100%;
-    min-width: 800px;
+    font-size: 23px;
+    color: white;
   }
   
   /* Style the navbar links */
-  .navbar a {
-    float: left;
-    display: block;
+  .NavbarLink a {
     color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
-    font-size:12px;
   }
   
+  .NavbarLink a:hover {
+    color:aquamarine,;
+    text-decoration: underline;
+  }
   /* Change color on hover */
   .navbar a:hover {
     background-color: #ddd;
