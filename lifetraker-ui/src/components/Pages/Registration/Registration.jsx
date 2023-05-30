@@ -1,12 +1,12 @@
 import React from "react";
-import  Product from "../../Product/Product"
+import  RegistrationForm from "../../Forms/RegistrationFrom/RegistrationFrom"
 
 
 const Registration = ()=>{
 
   return(
     <>  
-      < Product/>
+      <RegistrationForm/>
     </>
   )
 }

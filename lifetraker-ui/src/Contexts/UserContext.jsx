@@ -8,7 +8,8 @@ export const UserProvider = ({ children }) => {
     const [nutrition, setNutrition] = useState([]);
     const [sleep, setSleep] = useState([]);
     const [authCred, setAuthCred] = useState({'email':'', 'password':""})
-    const [eror, setError] = useState();
+    const [regCred, setRegCred] = useState({'email':'', 'password':"", 'firstName':"", 'lastName':"", 'location':"" })
+    const [error, setError] = useState();
     const [isFetch, setIsFetch] = useState(false)
 
 
@@ -21,6 +22,7 @@ export const UserProvider = ({ children }) => {
       setUser({})
      } 
     
+     
      
     const fetchUser= async () => {
       setIsFetch(true);  
@@ -39,6 +41,7 @@ export const UserProvider = ({ children }) => {
         const message = err?.response?.data?.error?.message;
         setError(message ?? String(err));
       } finally {
+        setAuthCred({'email':'', 'password':""});
         setIsFetch(false);
       }
     };
@@ -85,10 +88,32 @@ export const UserProvider = ({ children }) => {
 
     
 
+    const createUser = async () =>{
+      setIsFetch(true);  
+      if(!regCred) throw new Error("pls add email and pass")
+      try {
+        const res = await axios.post("http://localhost:3005/auth/register",
+        regCred
+        );
+        console.log(" userContext")
+        console.log(res)
+        if (res.data.user?.message) {
+          setError(res?.user?.message||"Error register");
+        }else{
+          setUser(res.data.user);
+          setError("");
+        }
+      } catch (err) {
+        const message = err?.response?.data?.error?.message;
+        setError(message ?? String(err));
+      } finally {
+        setIsFetch(false);
+      }
+    };
     
   
 
-  const value = {user,exercise,nutrition,sleep,setUser,setExercise,setNutrition,setSleep,authCred, setAuthCred,fetchUser, isFetch, setIsFetch,fetchExercise,fetchSleep,Logout};
+  const value = {user,exercise,nutrition,sleep,error, setError,setUser,setExercise,setNutrition,setSleep,authCred, setAuthCred,fetchUser, isFetch, setIsFetch,fetchExercise,fetchSleep,Logout, setRegCred, createUser};
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

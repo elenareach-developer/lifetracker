@@ -24,7 +24,7 @@ const Portal = ()=>{
   },[])
   return(
     <>   
-      <h3 id="about">Welcome to {user.first_name} Portal</h3>
+      <h3 id="about">Welcome to {user?.first_name} Portal</h3>
           <div className="card">
               <NavbarLinks/>
           </div>
