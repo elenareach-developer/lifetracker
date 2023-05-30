@@ -86,6 +86,26 @@ export const UserProvider = ({ children }) => {
       }
     };
 
+    const fetchNutrition= async () => {
+      setIsFetch(true);  
+      if(!user) throw new Error("pls add email and pass")
+      try {
+        const res = await axios.post("http://localhost:3005/nutrition/list",
+          user
+        );
+        if (res) {
+         await setNutrition(res.data.nutrition);
+        } else {
+          setError("Error fetching nutrition");
+        }
+      } catch (err) {
+        const message = err?.response?.data?.error?.message;
+        setError(message ?? String(err));
+      } finally {
+        setIsFetch(false);
+      }
+    };
+
     
 
     const createUser = async () =>{
@@ -113,7 +133,7 @@ export const UserProvider = ({ children }) => {
     
   
 
-  const value = {user,exercise,nutrition,sleep,error, setError,setUser,setExercise,setNutrition,setSleep,authCred, setAuthCred,fetchUser, isFetch, setIsFetch,fetchExercise,fetchSleep,Logout, setRegCred, createUser};
+  const value = {user,exercise,nutrition,sleep,error, setError,setUser,setExercise,setNutrition,fetchNutrition,setSleep,authCred, setAuthCred,fetchUser, isFetch, setIsFetch,fetchExercise,fetchSleep,Logout, setRegCred, createUser};
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

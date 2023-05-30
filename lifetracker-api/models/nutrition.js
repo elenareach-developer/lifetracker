@@ -38,9 +38,8 @@ static async list ({user}){
     const results = await db.query(`
     SELECT id, name, duration, intensity, user_id as userId", timestamp
     FROM exercises
-    WHERE id = $1
-    ORDER BY timestamp DESC`,
-    [user.id]
+    WHERE id = ${user.id}
+    ORDER BY timestamp DESC`
     )
     const nutrition = results.rows
     return nutrition || []

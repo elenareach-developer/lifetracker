@@ -58,10 +58,9 @@ class Sleep {
               user_id AS "userId",
               timestamp
       FROM sleep
-      WHERE user_id = $1
+      WHERE user_id = ${user.id}
       ORDER BY start_time DESC
-    `,
-      [user.id]
+    `
     )
 
     const sleeps = results.rows

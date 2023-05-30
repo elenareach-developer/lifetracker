@@ -22,9 +22,9 @@ app.use(morgan("tiny"))
 // routes
 app.use("/auth", require("./routes/auth"))
 //app.use("/users", usersRoutes)
-//app.use("/sleep", sleepRoutes)
+app.use("/sleep", require('./routes/sleepRoutes'))
 app.use("/exercise", require("./routes/exerciseRoutes"))
-//app.use("/nutrition", nutritionRoutes)
+app.use("/nutrition", require('./routes/nutritionRoutes'))
 
 app.use("/" , function(req, res){
     return res.status(200).json({
