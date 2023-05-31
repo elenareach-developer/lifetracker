@@ -47,8 +47,6 @@ static async list(user){
     ORDER BY timestamp DESC`
     )
     const exercises = results.rows
-    console.log("list user===");
-    console.log(exercises)
     return exercises 
 }
 

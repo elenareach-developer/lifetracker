@@ -16,16 +16,16 @@ class Sleep {
         const result = await db.query(
             `
             INSERT INTO sleep(start_time, end_time, user_id)
-            VALUES ($1, $2, $3)
+            VALUES (${startTime}, ${endTime}, ${user.id})
             RETURNING id,
                         start_time as "startTime",
                         end_time as "endTime",
                         user_id as "userId",
                         timestamp`,
-            [startTime, endTime, user.id]
         ) 
         return result.rows[0]
     }
+
     static async fetchById(sleepId) {
     const results = await db.query(
       `
@@ -35,10 +35,8 @@ class Sleep {
               user_id as "userId",
               timestamp
       FROM sleep
-      WHERE id = $1
-    `,
-      [sleepId]
-    )
+      WHERE id = ${sleepId}
+    `)
 
     const sleep = results.rows[0]
 
@@ -49,7 +47,8 @@ class Sleep {
     return sleep
   }
 
-  static async list({ user }) {
+  static async list(user) {
+  
     const results = await db.query(
       `
       SELECT id,

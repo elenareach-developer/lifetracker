@@ -1,6 +1,10 @@
 
 
-.SleepFrom{
+label{
+    font-size: 12px;
+    min-width: 100px
+}
+.SleepForm{
     display:flex;
     justify-content: center;
     padding:20px;

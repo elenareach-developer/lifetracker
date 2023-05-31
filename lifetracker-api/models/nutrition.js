@@ -34,7 +34,7 @@ static async fetchById(nutritionId){
         throw new NotFoundError("Nutrition not found")
     }
 }
-static async list ({user}){
+static async list (user){
     const results = await db.query(`
     SELECT id, name, duration, intensity, user_id as userId", timestamp
     FROM exercises
