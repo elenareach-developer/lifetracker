@@ -120,7 +120,7 @@ export const UserProvider = ({ children }) => {
         if (res.data.user?.message) {
           setError(res?.user?.message||"Error register");
         }else{
-          setUser(res.data.user);
+          await fetchSleep();
           setError("");
         }
       } catch (err) {
@@ -131,6 +131,28 @@ export const UserProvider = ({ children }) => {
       }
     };
     
+    const createSleep = async () =>{
+      setIsFetch(true);  
+      if(!regCred) throw new Error("pls add email and pass")
+      try {
+        const res = await axios.post("http://localhost:3005/exercise/add",
+        regCred
+        );
+        console.log(" userContext")
+        console.log(res)
+        if (res.data.exercise?.message) {
+          setError(res?.exercise?.message||"Error register");
+        }else{
+          setUser(res.data.user);
+          setError("");
+        }
+      } catch (err) {
+        const message = err?.response?.data?.error?.message;
+        setError(message ?? String(err));
+      } finally {
+        setIsFetch(false);
+      }
+    };
   
 
   const value = {user,exercise,nutrition,sleep,error, setError,setUser,setExercise,setNutrition,fetchNutrition,setSleep,authCred, setAuthCred,fetchUser, isFetch, setIsFetch,fetchExercise,fetchSleep,Logout, setRegCred, createUser};

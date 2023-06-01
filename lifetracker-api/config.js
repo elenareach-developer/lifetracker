@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001
 const IS_TESTING = process.env.NODE_ENV === "test"
 
 // Use dev database, testing database, or via env var, production database
-function getDatabaseUri() {
+function getDatabaseUriOLD() {
   const dbUser = process.env.DATABASE_USER || "newuser"
   const dbPass = process.env.DATABASE_PASS ? encodeURI(process.env.DATABASE_PASS) : "password"
   const dbHost = process.env.DATABASE_HOST || "localhost"
@@ -22,7 +22,9 @@ function getDatabaseUri() {
 
   return process.env.DATABASE_URL || `postgresql://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`
 }
-
+ function getDatabaseUri(){
+    retrun `postgres://registrations_user:GW6bDQamGYoSGwaMU2yX9w9ZSIuy04d2@dpg-chs0rre4dadfn67f9pq0-a/registrations`
+ }
 // Speed up bcrypt during tests, since the algorithm safety isn't being tested
 const BCRYPT_WORK_FACTOR = IS_TESTING ? 1 : 13
 
